@@ -1,0 +1,128 @@
+-- Constants
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+-- Create Screen GUI
+local gui = Instance.new("ScreenGui")
+gui.Name = "MM2ScriptGui"
+gui.ResetOnSpawn = false
+gui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- GUI Style
+gui.DisplayOrder = 999
+gui.IgnoreGuiInset = true
+gui.Enabled = true
+gui.ResetOnSpawn = false
+gui.ZIndexBehavior = Enum.ZIndexBehavior.Global
+
+-- GUI Position and Size
+gui.Position = UDim2.new(0, 20, 0, 20)
+gui.Size = UDim2.new(0, 200, 0, 200)
+gui.BackgroundColor3 = Color3.new(0, 0, 0)
+gui.BackgroundTransparency = 0.5
+gui.Active = true
+gui.Draggable = true
+
+-- GUI Title
+local title = Instance.new("TextLabel")
+title.Name = "Title"
+title.Parent = gui
+title.Text = "MM2 Script"
+title.Position = UDim2.new(0, 0, 0, 0)
+title.Size = UDim2.new(1, 0, 0, 30)
+title.BackgroundColor3 = Color3.new(0, 0, 0)
+title.BackgroundTransparency = 0.5
+title.Font = Enum.Font.SourceSansBold
+title.TextSize = 18
+title.TextColor3 = Color3.new(0, 1, 0)  -- Green text
+title.TextStrokeTransparency = 0
+title.TextStrokeColor3 = Color3.new(0, 0, 0)
+title.TextWrapped = true
+
+-- Button Functions
+local function highlightPlayers()
+    for _, player in ipairs(Players:GetPlayers()) do
+        local role = player.Role.Value  -- Assuming Role is a StringValue in player
+        local highlightColor = Color3.new(1, 1, 1)  -- Default color
+        
+        if role == "Innocent" then
+            highlightColor = Color3.new(0, 1, 0)  -- Green
+        elseif role == "Sheriff" then
+            highlightColor = Color3.new(0, 0, 1)  -- Blue
+        elseif role == "Murderer" then
+            highlightColor = Color3.new(1, 0, 0)  -- Red
+        end
+        
+        -- Apply highlight color to player
+        -- Example: Change player's character appearance based on role
+    end
+end
+
+local function aimbot()
+    -- Implementation of aimbot logic
+end
+
+local function killAura()
+    -- Implementation of kill aura logic
+end
+
+-- Button 1: ESP
+local espButton = Instance.new("TextButton")
+espButton.Name = "ESPButton"
+espButton.Parent = gui
+espButton.Text = "ESP"
+espButton.Position = UDim2.new(0, 10, 0, 40)
+espButton.Size = UDim2.new(0, 80, 0, 30)
+espButton.BackgroundColor3 = Color3.new(0, 0, 1)  -- Blue button
+espButton.Font = Enum.Font.SourceSansBold
+espButton.TextColor3 = Color3.new(1, 1, 1)
+espButton.TextSize = 14
+espButton.MouseButton1Click:Connect(highlightPlayers)
+
+-- Button 2: Aimbot
+local aimbotButton = Instance.new("TextButton")
+aimbotButton.Name = "AimbotButton"
+aimbotButton.Parent = gui
+aimbotButton.Text = "Aimbot"
+aimbotButton.Position = UDim2.new(0, 10, 0, 80)
+aimbotButton.Size = UDim2.new(0, 80, 0, 30)
+aimbotButton.BackgroundColor3 = Color3.new(0, 0, 1)  -- Blue button
+aimbotButton.Font = Enum.Font.SourceSansBold
+aimbotButton.TextColor3 = Color3.new(1, 1, 1)
+aimbotButton.TextSize = 14
+aimbotButton.MouseButton1Click:Connect(aimbot)
+
+-- Button 3: Kill Aura
+local killAuraButton = Instance.new("TextButton")
+killAuraButton.Name = "KillAuraButton"
+killAuraButton.Parent = gui
+killAuraButton.Text = "Kill Aura"
+killAuraButton.Position = UDim2.new(0, 10, 0, 120)
+killAuraButton.Size = UDim2.new(0, 80, 0, 30)
+killAuraButton.BackgroundColor3 = Color3.new(0, 0, 1)  -- Blue button
+killAuraButton.Font = Enum.Font.SourceSansBold
+killAuraButton.TextColor3 = Color3.new(1, 1, 1)
+killAuraButton.TextSize = 14
+killAuraButton.MouseButton1Click:Connect(killAura)
+
+-- Button 4: Close
+local closeButton = Instance.new("TextButton")
+closeButton.Name = "CloseButton"
+closeButton.Parent = gui
+closeButton.Text = "Close"
+closeButton.Position = UDim2.new(0, 10, 0, 160)
+closeButton.Size = UDim2.new(0, 80, 0, 30)
+closeButton.BackgroundColor3 = Color3.new(0, 0, 1)  -- Blue button
+closeButton.Font = Enum.Font.SourceSansBold
+closeButton.TextColor3 = Color3.new(1, 1, 1)
+closeButton.TextSize = 14
+closeButton.MouseButton1Click:Connect(function()
+    gui:Destroy()
+end)
+
+-- Function to keep GUI visible after respawn or death
+LocalPlayer.CharacterAdded:Connect(function(character)
+    if gui.Parent == nil then
+        gui.Parent = LocalPlayer.PlayerGui
+    end
+end)
